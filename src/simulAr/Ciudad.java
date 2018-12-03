@@ -134,8 +134,9 @@ public class Ciudad {
         } else {
             Collections.reverse(bloques);
             List<Bloque> ultimosBloques = new ArrayList<>();
-            ultimosBloques.addAll(bloques.subList(0, n));
+            ultimosBloques.addAll(bloques.subList(0, n).);
 
+            // Al parecer revierte la lista original, por eso la correccion
             Collections.reverse(bloques);
 
             return ultimosBloques;
