@@ -116,7 +116,7 @@ public class Ciudad {
             // si hay bloques super poblados
             if (!bloquesSuperPoblados.isEmpty()) {
                 // mudarPoblacion ... crear nuevo Bloque(dentro de cada Blque Residencial Super Poblado) y mudar poblacion
-                List<Bloque> nuevosBloquesResidensiales = bloquesSuperPoblados.stream().map(bloque -> bloque.mudarPoblacion(this)).collect(Collectors.toList());
+                List<Bloque> nuevosBloquesResidensiales = bloquesSuperPoblados.stream().map(bloque -> bloque.mudarPoblacion()).collect(Collectors.toList());
                 // compartir vecinos (los ultimos 3 de la ciudad)
                 nuevosBloquesResidensiales.forEach(bloque -> bloque.addBloqueVecino(ultimosBloques()));
                 bloques.addAll(nuevosBloquesResidensiales);
@@ -164,8 +164,8 @@ public class Ciudad {
                 bloques.forEach(bloque -> bloque.creceProduccion(porcentajeCrecimientoEconomico));
 
                 if (pbiPerCapita() > 1000) {
-                    BloqueIndustrial nuevoBloqueIndustrial = new BloqueIndustrial(promedioEconomiaLocal());   //todo: preguntar por el uso del average
-
+                    BloqueIndustrial nuevoBloqueIndustrial = new BloqueIndustrial(promedioEconomiaLocal(), this);
+                    //todo: preguntar por el uso del average
                     if (algunoDeLosUltimosBloquesTienePlaza()) {
                         nuevoBloqueIndustrial.addBloqueVecino(ultimosBloques());
                     }

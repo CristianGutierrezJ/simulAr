@@ -4,7 +4,8 @@ public class BloqueIndustrial extends Bloque {
 
     private Integer nivelDeProduccion;
 
-    public BloqueIndustrial(Integer nivelDeProduccion) {
+    public BloqueIndustrial(Integer nivelDeProduccion, Ciudad ciudadPerteneciente) {
+        super(ciudadPerteneciente);
         this.nivelDeProduccion = nivelDeProduccion;
     }
 

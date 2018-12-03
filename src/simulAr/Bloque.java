@@ -20,6 +20,10 @@ public abstract class Bloque {
         this.nombre = nombre;
     }
 
+    public Ciudad getCiudadPerteneciente() {
+        return ciudadPerteneciente;
+    }
+
     public Collection<Bloque> getBloquesVecinos() {
         return bloquesVecinos;
     }
@@ -77,7 +81,7 @@ public abstract class Bloque {
 
     public abstract boolean superoLimitePoblacional();
 
-    public abstract Bloque mudarPoblacion(Ciudad ciudadPerteneciente);
+    public abstract Bloque mudarPoblacion();
 
 
     public void creceProduccion(Double porcentajeCrecimiento) {

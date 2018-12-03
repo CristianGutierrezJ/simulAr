@@ -86,12 +86,12 @@ public class BloqueResidencial extends Bloque {
     }
 
 
-    public Bloque mudarPoblacion(Ciudad ciudad) {
+    public Bloque mudarPoblacion() {
         // divido mi poblacion
         Integer nuevaPoblacion = poblacion / 2;
         // Creo un Bloque residencial y mando la mitad a la nueva residencia
 
-        BloqueResidencial nuevoBloqueResidencial = new BloqueResidencial(nuevaPoblacion, 0, ciudad);
+        BloqueResidencial nuevoBloqueResidencial = new BloqueResidencial(nuevaPoblacion, 0, getCiudadPerteneciente());
         // actualizo mi poblacion
         setPoblacion(nuevaPoblacion);
 
