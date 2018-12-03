@@ -2,7 +2,6 @@ package simulAr;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
 public class Ciudad {
 
     private String nombre;
@@ -133,10 +132,12 @@ public class Ciudad {
         if (bloques.size() < n) {
             return bloques;
         } else {
+            Collections.reverse(bloques);
             List<Bloque> ultimosBloques = new ArrayList<>();
-            for (int i = 1; i <= n; i++) {
-                ultimosBloques.add(bloqueDesdeLaUltimaPosicion(i));
-            }
+            ultimosBloques.addAll(bloques.subList(0, n));
+
+            Collections.reverse(bloques);
+
             return ultimosBloques;
         }
     }
