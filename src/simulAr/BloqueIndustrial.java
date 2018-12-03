@@ -39,8 +39,6 @@ public class BloqueIndustrial extends Bloque {
     }
 
 
-
-
     @Override
     public Integer aporteEconomicoLocal() {
         return nivelDeProduccion * 1000;
@@ -56,7 +54,6 @@ public class BloqueIndustrial extends Bloque {
     }
 
 
-
     @Override
     public boolean superoLimitePoblacional() {
         return false;
@@ -66,8 +63,6 @@ public class BloqueIndustrial extends Bloque {
     public Bloque mudarPoblacion() {
         return null;
     }
-
-
 
 
 }

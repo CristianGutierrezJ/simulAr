@@ -38,7 +38,7 @@ public class Ciudad {
     }
 
     public void addBloque(Collection<Bloque> bloques) {
-        bloques.forEach(bloque -> addBloque(bloque));
+        this.bloques.addAll(bloques);
     }
 
 
@@ -118,7 +118,7 @@ public class Ciudad {
                 // mudarPoblacion ... crear nuevo Bloque(dentro de cada Blque Residencial Super Poblado) y mudar poblacion
                 List<Bloque> nuevosBloquesResidensiales = bloquesSuperPoblados.stream().map(bloque -> bloque.mudarPoblacion()).collect(Collectors.toList());
                 // compartir vecinos (los ultimos 3 de la ciudad)
-                nuevosBloquesResidensiales.forEach(bloque -> bloque.addBloqueVecino(ultimosBloques()));
+                nuevosBloquesResidensiales.forEach(bloque -> bloque.addBloqueVecino(ultimosNBloques(3)));
                 bloques.addAll(nuevosBloquesResidensiales);
             }
         } else {
@@ -128,14 +128,22 @@ public class Ciudad {
     }
 
 
-    private Collection<Bloque> ultimosBloques() {
-        List<Bloque> ultimosBloques = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            if (existeBloqueEnPosicion(i)) {
+    public Collection<Bloque> ultimosNBloques(Integer n) {
+        // me oediste n elementos y mi collecton tiene menos de esos n no los busco
+        if (bloques.size() < n) {
+            return bloques;
+        } else {
+            List<Bloque> ultimosBloques = new ArrayList<>();
+            for (int i = 1; i <= n; i++) {
                 ultimosBloques.add(bloqueDesdeLaUltimaPosicion(i));
             }
+            return ultimosBloques;
         }
-        return ultimosBloques;
+    }
+
+
+    private Bloque bloqueDesdeLaUltimaPosicion(Integer posicion) {
+        return bloques.get(bloques.size() - posicion);
     }
 
 
@@ -143,15 +151,6 @@ public class Ciudad {
         return bloques.stream()
                 .filter(bloque -> bloque.superoLimitePoblacional())
                 .collect(Collectors.toList());
-    }
-
-    // Siempre que esto se cumpla, no va a romper cuando le pida bloques
-    private boolean existeBloqueEnPosicion(Integer posicion) {
-        return bloques.size() > posicion;
-    }
-
-    private Bloque bloqueDesdeLaUltimaPosicion(Integer posicion) {
-        return bloques.get(bloques.size() - posicion);
     }
 
 
@@ -167,7 +166,7 @@ public class Ciudad {
                     BloqueIndustrial nuevoBloqueIndustrial = new BloqueIndustrial(promedioEconomiaLocal(), this);
                     //todo: preguntar por el uso del average
                     if (algunoDeLosUltimosBloquesTienePlaza()) {
-                        nuevoBloqueIndustrial.addBloqueVecino(ultimosBloques());
+                        nuevoBloqueIndustrial.addBloqueVecino(ultimosNBloques(3));
                     }
                     bloques.add(nuevoBloqueIndustrial);
                 }
@@ -180,7 +179,7 @@ public class Ciudad {
     }
 
     private Integer totalEconomiaLocal() {
-        return bloques.stream().mapToInt(bloque ->  bloque.aporteEconomicoLocal()).sum();
+        return bloques.stream().mapToInt(bloque -> bloque.aporteEconomicoLocal()).sum();
     }
 
     public Integer cantidadBloques() {
@@ -189,18 +188,18 @@ public class Ciudad {
 
 
     private boolean algunoDeLosUltimosBloquesTienePlaza() {
-        return ultimosBloques().stream().anyMatch(bloque -> bloque.tienePlaza());
+        return ultimosNBloques(3).stream().anyMatch(bloque -> bloque.tienePlaza());
     }
 
 
-    public void crecimientoMixto(Double porcentajeCrecimento){
+    public void crecimientoMixto(Double porcentajeCrecimento) {
         bloques.forEach(bloque -> bloque.setUltimoEvento("Crecimiento Mixto"));
         avanzarTrimestre();
         cambioPoblacional();
         crecimientoEconomico(porcentajeCrecimento);
     }
 
-    public void desastreNatural(){
+    public void desastreNatural() {
         avanzarTrimestre();
         bloques.forEach(bloque -> bloque.setUltimoEvento("Desastre Natural"));
         bloques.forEach(bloque -> bloque.decrecePoblacion(10.0));
@@ -209,7 +208,7 @@ public class Ciudad {
     }
 
     private void eliminarBloqueViejo() {
-        if(existeBloqueEnPosicion(0)) {
+        if (!bloques.isEmpty()) {
             bloques.remove(0);
         }
     }
