@@ -132,14 +132,11 @@ public class Ciudad {
         if (bloques.size() < n) {
             return bloques;
         } else {
-            Collections.reverse(bloques);
-            List<Bloque> ultimosBloques = new ArrayList<>();
-            ultimosBloques.addAll(bloques.subList(0, n).);
+            List<Bloque> bloquesCopy = bloques;
 
-            // Al parecer revierte la lista original, por eso la correccion
-            Collections.reverse(bloques);
+            Collections.reverse(bloquesCopy);
 
-            return ultimosBloques;
+            return bloquesCopy.subList(0, n);
         }
     }
 
