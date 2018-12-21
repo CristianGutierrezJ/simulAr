@@ -69,6 +69,15 @@ public class Ciudad {
         return bloques.stream().mapToInt(bloque -> bloque.getPoblacion()).sum();
     }
 
+
+
+
+
+
+
+
+
+
     // o Trimestre Actual
     public Integer enQueTrimestreSeEncuentra() {
         return indiceTrimestral + 1;
@@ -132,7 +141,7 @@ public class Ciudad {
         if (bloques.size() < n) {
             return bloques;
         } else {
-            List<Bloque> bloquesCopy = bloques;
+            List<Bloque> bloquesCopy = new ArrayList<>(bloques);
 
             Collections.reverse(bloquesCopy);
 

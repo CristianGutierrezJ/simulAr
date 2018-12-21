@@ -50,7 +50,7 @@ public class BloqueIndustrial extends Bloque {
     }
 
     @Override
-    protected void parquizar() {
+    public void parquizar() {
     }
 
 

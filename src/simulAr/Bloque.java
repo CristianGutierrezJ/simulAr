@@ -57,7 +57,7 @@ public abstract class Bloque {
 
     public abstract boolean tienePlaza();
 
-    protected abstract void parquizar();
+    public abstract void parquizar();
 
     // 4) -- Hacer que los bloques respondan si son felices.
     // Para ser feliz, un bloque tiene que, al mismo tiempo:

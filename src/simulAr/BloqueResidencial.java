@@ -56,7 +56,7 @@ public class BloqueResidencial extends Bloque {
 
     // Cada 10000 habitantes, aunmenta la cantidad de cantidadPlazas +1
     @Override
-    protected void parquizar() {
+    public void parquizar() {
         cantidadPlazas += nivelDePoblacion();
     }
 
