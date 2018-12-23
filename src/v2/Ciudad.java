@@ -10,6 +10,7 @@ public class Ciudad {
 
     private List<Bloque> bloques = new ArrayList<Bloque>();
     private MinisterioEconomia ministerioEconomia;
+    private List<Evento> eventos;
 
 
     public List<Bloque> getBloques() {
@@ -18,6 +19,7 @@ public class Ciudad {
 
     public Ciudad() {
         this.ministerioEconomia = new MinisterioEconomia();
+        this.eventos = new ArrayList<>();
     }
 
     public void addBloque(Bloque bloque) {
@@ -146,5 +148,8 @@ public class Ciudad {
         for (int i = 0; i < cantidadBloques; i++) bloques.remove(0);
     }
 
+    protected Evento ultimoEvento() {
+        return eventos.get(eventos.size()-1);
+    }
 
 }

@@ -6,11 +6,7 @@ import java.util.Collection;
 public abstract class Bloque {
 
     private Collection<Bloque> bloquesVecinos = new ArrayList<>();
-    private Evento evento;
 
-    public void setEvento(Evento evento) {
-        this.evento = evento;
-    }
 
     public Collection<Bloque> getBloquesVecinos() {
         return bloquesVecinos;
