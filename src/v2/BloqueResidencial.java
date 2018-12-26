@@ -19,10 +19,10 @@ public class BloqueResidencial extends Bloque {
     }
 
     public BloqueResidencial(Integer poblacion, Integer cantidadPlazas, List<Bloque> bloques) {
+        super(bloques);
         this.poblacion = poblacion;
         this.cantidadPlazas = cantidadPlazas;
         this.comercios = new ArrayList<>();
-        addBloqueVecino(bloques);
     }
 
 // GETTERS

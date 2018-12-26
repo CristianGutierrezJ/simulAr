@@ -1,5 +1,7 @@
 package v2;
 
+import java.util.List;
+
 public class BloqueIndustrial extends Bloque {
 
     private Double nivelDeProduccion;
@@ -8,6 +10,12 @@ public class BloqueIndustrial extends Bloque {
     public BloqueIndustrial(Double nivelDeProduccion) {
         this.nivelDeProduccion = nivelDeProduccion;
     }
+
+    public BloqueIndustrial(Double nivelDeProduccion, List<Bloque> bloques) {
+        super(bloques);
+        this.nivelDeProduccion = nivelDeProduccion;
+    }
+
 
     @Override
     public Double getNivelProduccion() { // Un nivel de produccion 10, equivale a $10.000

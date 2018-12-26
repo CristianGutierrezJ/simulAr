@@ -2,11 +2,21 @@ package v2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class Bloque {
 
     private Collection<Bloque> bloquesVecinos = new ArrayList<>();
+    private List<Evento> eventos = new ArrayList<>();
 
+    // TODO: CHEQUEAR CONSTRUCTORES DE TODOS LOS BLOQUES PARA QUE ADMITAN CIUDAD, SINO NUNCA VA A GUARDARSE UNA CIUDAD
+
+    public Bloque() {
+    }
+
+    public Bloque(Collection<Bloque> bloquesVecinos) {
+        addBloqueVecino(bloquesVecinos);
+    }
 
     public Collection<Bloque> getBloquesVecinos() {
         return bloquesVecinos;
@@ -17,7 +27,7 @@ public abstract class Bloque {
     }
 
     public void addBloqueVecino(Collection<Bloque> bloques) {
-        bloques.forEach(bloque -> addBloqueVecino(bloque));
+        bloquesVecinos.addAll(bloques);
     }
 
     // 1) -- Saber si un bloque está celoso,
@@ -41,9 +51,18 @@ public abstract class Bloque {
     // 4) -- Hacer que los bloques respondan si son felices.
     public boolean esFeliz() {
         //todo:....................................
-        if(evento.esDesastreNatural()) return false;
+        if (!eventos.isEmpty() && sufrioDesastreNatural()) return false;
         else return tienePlaza() && poblacionTotalVecinos() > getPoblacion() && !estaCeloso();
     }
+
+    private Boolean sufrioDesastreNatural() {
+        return ultimoEvento().esDesastreNatural();
+    }
+
+    protected Evento ultimoEvento() {
+        return eventos.get(eventos.size() - 1);
+    }
+
 
     protected Integer poblacionTotalVecinos() {
         return bloquesVecinos.stream().mapToInt(bloque -> bloque.getPoblacion()).sum();
@@ -62,4 +81,12 @@ public abstract class Bloque {
     protected abstract void incrementarAporteEconomico(Double porcentajeDeCrecimiento);
 
     protected abstract Double getNivelProduccion();
+
+    private void addEvento(Evento evento) {
+        eventos.add(evento);
+    }
+
+    protected void evaluarEvento(Evento evento) {
+        if(evento.seProdujoConExito()) addEvento(evento);
+    }
 }

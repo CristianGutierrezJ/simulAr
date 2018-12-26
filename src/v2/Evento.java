@@ -3,9 +3,13 @@ package v2;
 public abstract class Evento {
 
 
-    public abstract void produceCambios(Ciudad ciudad);
+
+    protected abstract void produceCambios(Ciudad ciudad);
 
 
-    public abstract Boolean esDesastreNatural();
+    protected abstract Boolean esDesastreNatural();
+
+    protected abstract Boolean seProdujoConExito();
+
 
 }

@@ -10,23 +10,27 @@ public class Ciudad {
 
     private List<Bloque> bloques = new ArrayList<Bloque>();
     private MinisterioEconomia ministerioEconomia;
-    private List<Evento> eventos;
+
+
+    public Ciudad() {
+        this.ministerioEconomia = new MinisterioEconomia();
+    }
+
+    public Ciudad(Collection<Bloque> bloques) {
+        this.ministerioEconomia = new MinisterioEconomia();
+        this.addBloques(bloques);
+    }
 
 
     public List<Bloque> getBloques() {
         return bloques;
     }
 
-    public Ciudad() {
-        this.ministerioEconomia = new MinisterioEconomia();
-        this.eventos = new ArrayList<>();
-    }
-
     public void addBloque(Bloque bloque) {
         bloques.add(bloque);
     }
 
-    public void addBloque(Collection<Bloque> bloques) {
+    public void addBloques(Collection<Bloque> bloques) {
         this.bloques.addAll(bloques);
     }
 
@@ -58,11 +62,13 @@ public class Ciudad {
         ministerioEconomia.addPBI(pbiPerCapita()); // Captura el PBI actual, y lo almacena en el ministerio
     }
 
+
     public void ocurreEvento(Evento evento) {
         avanzaTrimestre();
+
         evento.produceCambios(this);
 
-        bloques.forEach(bloque -> bloque.setEvento(evento));
+        informarEvento(evento);
 
         evaluarPoblacion(100000);
         evaluarPbiPerCapita(1000);
@@ -145,11 +151,16 @@ public class Ciudad {
 // Evento: Desastre Natural
 
     protected void destruirBloqueViejo(Integer cantidadBloques) {
-        for (int i = 0; i < cantidadBloques; i++) bloques.remove(0);
+        for (int i = 0; i < cantidadBloques; i++) removerBloque(0);
     }
 
-    protected Evento ultimoEvento() {
-        return eventos.get(eventos.size()-1);
+    private void removerBloque(Integer indice) {
+        bloques.remove(indice);
     }
+
+    public void informarEvento(Evento evento) {
+        bloques.forEach(bloque -> bloque.evaluarEvento(evento));
+    }
+
 
 }

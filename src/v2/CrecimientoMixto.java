@@ -12,14 +12,19 @@ public class CrecimientoMixto extends Evento {
     }
 
     @Override
-    public void produceCambios(Ciudad ciudad) {
+    protected void produceCambios(Ciudad ciudad) {
         cambioPoblacion.produceCambios(ciudad);
         crecimientoEconomico.produceCambios(ciudad);
     }
 
     @Override
-    public Boolean esDesastreNatural() {
+    protected Boolean esDesastreNatural() {
         return false;
+    }
+
+    @Override
+    protected Boolean seProdujoConExito() {
+        return cambioPoblacion.seProdujoConExito() || crecimientoEconomico.getFueExitoso();
     }
 
 

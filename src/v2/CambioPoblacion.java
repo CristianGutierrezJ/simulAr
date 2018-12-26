@@ -10,14 +10,19 @@ public class CambioPoblacion extends Evento {
     // y la población del original (ya aumentada) se divide por igual, entre el mismo y el nuevo.
 
     @Override
-    public void produceCambios(Ciudad ciudad) {
+    protected void produceCambios(Ciudad ciudad) {
         if (ciudad.economiaEstaBien()) crecimiento(ciudad);
         else decrecimiento(ciudad);
     }
 
     @Override
-    public Boolean esDesastreNatural() {
+    protected Boolean esDesastreNatural() {
         return false;
+    }
+
+    @Override
+    protected Boolean seProdujoConExito() {
+        return true;
     }
 
     protected void crecimiento(Ciudad ciudad) {
@@ -27,6 +32,7 @@ public class CambioPoblacion extends Evento {
 
     protected void decrecimiento(Ciudad ciudad) {
         ciudad.decrecePoblacion(1.0);
+
     }
 
 
