@@ -9,7 +9,6 @@ public abstract class Bloque {
     private Collection<Bloque> bloquesVecinos = new ArrayList<>();
     private List<Evento> eventos = new ArrayList<>();
 
-    // TODO: CHEQUEAR CONSTRUCTORES DE TODOS LOS BLOQUES PARA QUE ADMITAN CIUDAD, SINO NUNCA VA A GUARDARSE UNA CIUDAD
 
     public Bloque() {
     }
@@ -51,12 +50,13 @@ public abstract class Bloque {
     // 4) -- Hacer que los bloques respondan si son felices.
     public boolean esFeliz() {
         //todo:....................................
-        if (!eventos.isEmpty() && sufrioDesastreNatural()) return false;
+        if (sufrioDesastreNatural()) return false;
         else return tienePlaza() && poblacionTotalVecinos() > getPoblacion() && !estaCeloso();
     }
 
     private Boolean sufrioDesastreNatural() {
-        return ultimoEvento().esDesastreNatural();
+        if (eventos.isEmpty()) return false;
+        else return ultimoEvento().esDesastreNatural();
     }
 
     protected Evento ultimoEvento() {
@@ -87,6 +87,6 @@ public abstract class Bloque {
     }
 
     protected void evaluarEvento(Evento evento) {
-        if(evento.seProdujoConExito()) addEvento(evento);
+        if (evento.seProdujoConExito()) addEvento(evento);
     }
 }
